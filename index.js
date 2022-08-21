@@ -231,6 +231,7 @@ class Grid {
         }
 
         this.width = columns * 30 // the width of the grid is the the number of columns * the width of the Invader
+        this.height = rows * 30
 
         for (let x = 0; x < columns; x++){ //creating 10 invaders and pushing them into the array
           for (let y = 0; y < rows; y++){ // this for loop is so we can place the invaders on the y axis after looping through again
@@ -359,7 +360,8 @@ function animate(){ //function to create an animation loop
         //conditons to check if the projectiles hit our player
         if(invaderProjectile.position.y + invaderProjectile.height >= player.position.y &&
             invaderProjectile.position.x + invaderProjectile.width >= player.position.x &&
-            invaderProjectile.position.x <= player.position.x + player.width)
+            invaderProjectile.position.x <= player.position.x + player.width  
+            )
             {
                 setTimeout(()=>{  
                     invaderProjectiles.splice(index, 1)   // removes projectile if it has hit our player
@@ -395,11 +397,35 @@ function animate(){ //function to create an animation loop
             grid.invaders[Math.floor(Math.random() * grid.invaders.length)].shoot(invaderProjectiles)// choosing a random invader to shoot the projectile
 
         } 
+    
+        if(grid.position.y + grid.height >= 520) { // ending the game once the invaders reach the ship    
+            setTimeout(()=>{    
+                player.opacity = 0
+                game.over = true; 
+                
+            }, 0)
+            setTimeout(()=>{  
+              game.active = false;  
+              gameOver.innerHTML="GAME OVER"
+            },2000)
+            createParticles({
+                object: player, 
+                color: 'white', 
+                ades: true
+            });
+        }
+        
+        
+        
+        
         grid.invaders.forEach((invader, i) => { //call update from the invader class inside the the grid
             invader.update({velocity: grid.velocity}); // the grid velocity will determine the velocity of the invader
             
+        
+
             //Shooting the invaders 
             projectiles.forEach((projectile, j) => {//detecting for collision
+
                 if(projectile.position.y - projectile.radius <= //checks if the top of the projectile hits the bottom of an invader
                     invader.position.y + invader.height && 
                     projectile.position.x + projectile.radius >= invader.position.x &&
@@ -454,7 +480,7 @@ function animate(){ //function to create an animation loop
     if (frames % randomInterval === 0 ){ //if the animation has happened a certain number of times
         grids.push(new Grid()) // we push a new grid into the array and add it into the game
         randomInterval = Math.floor(Math.random() * 500 + 500)
-        console.log(randomInterval)
+        
         frames = 0
     }
 
@@ -501,7 +527,7 @@ window.addEventListener('keyup', ({key}) => { // event listener for when we let 
             keys.d.pressed = false;
             break
         case 'w':
-            console.log('shoot')
+
             break
     }
     
