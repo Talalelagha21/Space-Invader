@@ -1,5 +1,6 @@
-const canvas = document.querySelector('canvas')
-const scoreElement = document.getElementById('score')
+const canvas = document.querySelector('canvas');
+const scoreElement = document.getElementById('score');
+const gameOver = document.getElementById('gameOver');
 const ctx = canvas.getContext('2d')
 canvas.width = 1024
 canvas.height = 576
@@ -368,6 +369,7 @@ function animate(){ //function to create an animation loop
 
                 setTimeout(()=>{  
                     game.active = false; // game.active is triggerd after 2 seconds and the whole game stops
+                    gameOver.innerHTML="GAME OVER"
                 }, 2000)
 
                 createParticles({
