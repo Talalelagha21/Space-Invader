@@ -1,4 +1,4 @@
-const canvas = document.querySelector('canvas');
+const canvas = document.getElementById('canvas1');
 const scoreElement = document.getElementById('score');
 const gameOver = document.getElementById('gameOver');
 const ctx = canvas.getContext('2d')
@@ -383,6 +383,8 @@ function animate(){ //function to create an animation loop
     })
     projectiles.forEach((projectile, index) => { //for each projectile in the array we are gonna call update on it
         if (projectile.position.y + projectile.radius <= 0){// checks if the projectiles left the page
+            score-=10
+            scoreElement.innerHTML = score;
             setTimeout(()=>{ 
                 projectiles.splice(index, 1)    //if it has, we remove it from the array
             }, 0)
@@ -487,7 +489,7 @@ function animate(){ //function to create an animation loop
 
     frames++ // keep track how many times we went throught the animation
 }
-animate() 
+
 
 
 //-----------------------------------------------------EventListener for the Controls------------------------------------------------------------------------
@@ -531,4 +533,18 @@ window.addEventListener('keyup', ({key}) => { // event listener for when we let 
             break
     }
     
-})
+});
+
+//-----------------------------------------------------Going from the start screen to the game------------------------------------------------------------------------
+
+function startGame() {
+    console.log('start game');
+    toggleScreen("startScreen", false);
+    toggleScreen("gameScreen", true);
+    animate();
+   }
+   function toggleScreen(id, toggle) {
+    let element = document.getElementById(id);  
+    let display = ( toggle ) ? "block" : "none";
+    element.style.display = display;
+   }

@@ -6,10 +6,46 @@
         align-items: center;
         background-color: grey;
     }
+    #startButton{
+        z-index:2;
+        position:absolute; 
+        top:375; 
+        left:410;
+        color: #ffffff;
+        border: none;
+        margin: 4px 2px;
+        cursor: pointer;
+        background-color: transparent;
+        font-family: 'Courier New', monospace;
+        font-size: 50px;
+    }
+    #startButton:hover {
+        color: #000000;
+    }
+    h1{
+        color: #ffffff;
+        z-index:2;
+        position:absolute;
+        top:100;
+        left:225;
+        font-family: 'Courier New', monospace;
+        font-size:75;
+        font-weight: 150;
+    }
+
+   
 </style>
 
+<div id="startScreen" style="position: relative;">
+     
+    <canvas style='z-index: 1;' id="canvas2"></canvas>
+    <h1>SPACE INVADER</h1>
+    <input  id="startButton" type="button" value="Start" onclick="startGame()"/>
+   
+</div>
+
     
-<div style="position: relative;">
+<div id="gameScreen" style="display: none; position: relative;">
     <p
         style="position: absolute; 
                z-index: 10; 
@@ -24,14 +60,15 @@
     <h1 id="gameOver" style="position: absolute; 
                z-index: 25; 
                color: white; 
-               left: 440px; 
+               left: 425px; 
                top: 275px; 
-               font-family: sans-serif; 
-                font-size: 25;"
+               font-family: 'Courier New', monospace ; 
+               font-size: 35;
+               font-weight: 150;"
 
-    >
-        
+    >  
     </h1>
-    <canvas></canvas>
+    <canvas id="canvas1"></canvas>
 </div>
+<script src="startScreen.js"></script>
 <script src="index.js"></script>
